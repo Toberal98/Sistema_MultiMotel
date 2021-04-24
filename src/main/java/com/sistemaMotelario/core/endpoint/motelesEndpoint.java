@@ -39,10 +39,5 @@ public class motelesEndpoint {
         List <SmDepartamento>  lsDepartment = deparservice.findAll();
         return lsDepartment;
     }
-        
-    @GetMapping("/")
-     public String home(){
-         return "Hello World!";
-     }
     
 }
