@@ -5,6 +5,7 @@
  */
 package com.sistemaMotelario.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -43,12 +44,14 @@ public class SmMunicipio implements Serializable {
     @Lob
     @Column(name = "mun_nombre")
 	private String munNombre;
+        @JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "munId")
 	private Collection<SmMotel> smMotelCollection;
+        @JsonIgnore
 	@OneToMany(mappedBy = "munId")
 	private Collection<SmUsuario> smUsuarioCollection;
 	@JoinColumn(name = "dep_id", referencedColumnName = "dep_id")
-    @ManyToOne
+        @ManyToOne
 	private SmDepartamento depId;
 
 	public SmMunicipio() {
