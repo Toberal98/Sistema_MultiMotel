@@ -5,8 +5,9 @@
  */
 package com.sistemaMotelario.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,219 +25,155 @@ import javax.persistence.Table;
 
 /**
  *
- * @author oscar
+ * @author Dell
  */
 @Entity
 @Table(name = "sm_usuario")
 @NamedQueries({
-	@NamedQuery(name = "SmUsuario.findAll", query = "SELECT s FROM SmUsuario s"),
-	@NamedQuery(name = "SmUsuario.findByUsrId", query = "SELECT s FROM SmUsuario s WHERE s.usrId = :usrId"),
-	@NamedQuery(name = "SmUsuario.findByUsrEdad", query = "SELECT s FROM SmUsuario s WHERE s.usrEdad = :usrEdad")})
+    @NamedQuery(name = "SmUsuario.findAll", query = "SELECT s FROM SmUsuario s"),
+    @NamedQuery(name = "SmUsuario.findByUsrId", query = "SELECT s FROM SmUsuario s WHERE s.usrId = :usrId")})
 public class SmUsuario implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Id
+    private static final long serialVersionUID = 1L;
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "usr_id")
-	private Integer usrId;
-	@Basic(optional = false)
-    @Lob
-    @Column(name = "usr_nombre")
-	private String usrNombre;
-	@Basic(optional = false)
-    @Lob
-    @Column(name = "usr_apellido")
-	private String usrApellido;
-	@Basic(optional = false)
-    @Lob
-    @Column(name = "usr_genero")
-	private String usrGenero;
-	@Basic(optional = false)
-    @Column(name = "usr_edad")
-	private int usrEdad;
-	@Basic(optional = false)
+    private Integer usrId;
+    @Basic(optional = false)
     @Lob
     @Column(name = "usr_correo")
-	private String usrCorreo;
-	@Basic(optional = false)
-    @Lob
-    @Column(name = "usr_username")
-	private String usrUsername;
-	@Basic(optional = false)
+    private String usrCorreo;
+    @Basic(optional = false)
     @Lob
     @Column(name = "usr_password")
-	private String usrPassword;
-	@Basic(optional = false)
-    @Lob
-    @Column(name = "usr_telefono")
-	private String usrTelefono;
-	@JoinColumn(name = "mun_id", referencedColumnName = "mun_id")
+    private String usrPassword;
+    @OneToMany(mappedBy = "usrId")
+    private List<SmAccesosUsuarioMotel> smAccesosUsuarioMotelList;
+    @JoinColumn(name = "mun_id", referencedColumnName = "mun_id")
     @ManyToOne
-	private SmMunicipio munId;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usrId")
-	private Collection<SmComentario> smComentarioCollection;
-	@OneToMany(mappedBy = "usrId")
-	private Collection<SmTipoUsuarios> smTipoUsuariosCollection;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usrId")
-	private Collection<SmDetalleMotelUsuario> smDetalleMotelUsuarioCollection;
-	@OneToMany(mappedBy = "usrId")
-	private Collection<SmReservacion> smReservacionCollection;
+    private SmMunicipio munId;
+    @JoinColumn(name = "tusr_id", referencedColumnName = "tusr_id")
+    @ManyToOne
+    private SmTipoUsuarios tusrId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrId")
+    @JsonIgnore
+    private List<SmComentario> smComentarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrId")
+    @JsonIgnore
+    private List<SmDetalleMotelUsuario> smDetalleMotelUsuarioList;
+    @JsonIgnore
+    @OneToMany(mappedBy = "usrId")
+    private List<SmReservacion> smReservacionList;
 
-	public SmUsuario() {
-	}
+    public SmUsuario() {
+    }
 
-	public SmUsuario(Integer usrId) {
-		this.usrId = usrId;
-	}
+    public SmUsuario(Integer usrId) {
+        this.usrId = usrId;
+    }
 
-	public SmUsuario(Integer usrId, String usrNombre, String usrApellido, String usrGenero, int usrEdad, String usrCorreo, String usrUsername, String usrPassword, String usrTelefono) {
-		this.usrId = usrId;
-		this.usrNombre = usrNombre;
-		this.usrApellido = usrApellido;
-		this.usrGenero = usrGenero;
-		this.usrEdad = usrEdad;
-		this.usrCorreo = usrCorreo;
-		this.usrUsername = usrUsername;
-		this.usrPassword = usrPassword;
-		this.usrTelefono = usrTelefono;
-	}
+    public SmUsuario(Integer usrId, String usrCorreo, String usrPassword) {
+        this.usrId = usrId;
+        this.usrCorreo = usrCorreo;
+        this.usrPassword = usrPassword;
+    }
 
-	public Integer getUsrId() {
-		return usrId;
-	}
+    public Integer getUsrId() {
+        return usrId;
+    }
 
-	public void setUsrId(Integer usrId) {
-		this.usrId = usrId;
-	}
+    public void setUsrId(Integer usrId) {
+        this.usrId = usrId;
+    }
 
-	public String getUsrNombre() {
-		return usrNombre;
-	}
+    public String getUsrCorreo() {
+        return usrCorreo;
+    }
 
-	public void setUsrNombre(String usrNombre) {
-		this.usrNombre = usrNombre;
-	}
+    public void setUsrCorreo(String usrCorreo) {
+        this.usrCorreo = usrCorreo;
+    }
 
-	public String getUsrApellido() {
-		return usrApellido;
-	}
+    public String getUsrPassword() {
+        return usrPassword;
+    }
 
-	public void setUsrApellido(String usrApellido) {
-		this.usrApellido = usrApellido;
-	}
+    public void setUsrPassword(String usrPassword) {
+        this.usrPassword = usrPassword;
+    }
 
-	public String getUsrGenero() {
-		return usrGenero;
-	}
+    public List<SmAccesosUsuarioMotel> getSmAccesosUsuarioMotelList() {
+        return smAccesosUsuarioMotelList;
+    }
 
-	public void setUsrGenero(String usrGenero) {
-		this.usrGenero = usrGenero;
-	}
+    public void setSmAccesosUsuarioMotelList(List<SmAccesosUsuarioMotel> smAccesosUsuarioMotelList) {
+        this.smAccesosUsuarioMotelList = smAccesosUsuarioMotelList;
+    }
 
-	public int getUsrEdad() {
-		return usrEdad;
-	}
+    public SmMunicipio getMunId() {
+        return munId;
+    }
 
-	public void setUsrEdad(int usrEdad) {
-		this.usrEdad = usrEdad;
-	}
+    public void setMunId(SmMunicipio munId) {
+        this.munId = munId;
+    }
 
-	public String getUsrCorreo() {
-		return usrCorreo;
-	}
+    public SmTipoUsuarios getTusrId() {
+        return tusrId;
+    }
 
-	public void setUsrCorreo(String usrCorreo) {
-		this.usrCorreo = usrCorreo;
-	}
+    public void setTusrId(SmTipoUsuarios tusrId) {
+        this.tusrId = tusrId;
+    }
 
-	public String getUsrUsername() {
-		return usrUsername;
-	}
+    public List<SmComentario> getSmComentarioList() {
+        return smComentarioList;
+    }
 
-	public void setUsrUsername(String usrUsername) {
-		this.usrUsername = usrUsername;
-	}
+    public void setSmComentarioList(List<SmComentario> smComentarioList) {
+        this.smComentarioList = smComentarioList;
+    }
 
-	public String getUsrPassword() {
-		return usrPassword;
-	}
+    public List<SmDetalleMotelUsuario> getSmDetalleMotelUsuarioList() {
+        return smDetalleMotelUsuarioList;
+    }
 
-	public void setUsrPassword(String usrPassword) {
-		this.usrPassword = usrPassword;
-	}
+    public void setSmDetalleMotelUsuarioList(List<SmDetalleMotelUsuario> smDetalleMotelUsuarioList) {
+        this.smDetalleMotelUsuarioList = smDetalleMotelUsuarioList;
+    }
 
-	public String getUsrTelefono() {
-		return usrTelefono;
-	}
+    public List<SmReservacion> getSmReservacionList() {
+        return smReservacionList;
+    }
 
-	public void setUsrTelefono(String usrTelefono) {
-		this.usrTelefono = usrTelefono;
-	}
+    public void setSmReservacionList(List<SmReservacion> smReservacionList) {
+        this.smReservacionList = smReservacionList;
+    }
 
-	public SmMunicipio getMunId() {
-		return munId;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (usrId != null ? usrId.hashCode() : 0);
+        return hash;
+    }
 
-	public void setMunId(SmMunicipio munId) {
-		this.munId = munId;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof SmUsuario)) {
+            return false;
+        }
+        SmUsuario other = (SmUsuario) object;
+        if ((this.usrId == null && other.usrId != null) || (this.usrId != null && !this.usrId.equals(other.usrId))) {
+            return false;
+        }
+        return true;
+    }
 
-	public Collection<SmComentario> getSmComentarioCollection() {
-		return smComentarioCollection;
-	}
-
-	public void setSmComentarioCollection(Collection<SmComentario> smComentarioCollection) {
-		this.smComentarioCollection = smComentarioCollection;
-	}
-
-	public Collection<SmTipoUsuarios> getSmTipoUsuariosCollection() {
-		return smTipoUsuariosCollection;
-	}
-
-	public void setSmTipoUsuariosCollection(Collection<SmTipoUsuarios> smTipoUsuariosCollection) {
-		this.smTipoUsuariosCollection = smTipoUsuariosCollection;
-	}
-
-	public Collection<SmDetalleMotelUsuario> getSmDetalleMotelUsuarioCollection() {
-		return smDetalleMotelUsuarioCollection;
-	}
-
-	public void setSmDetalleMotelUsuarioCollection(Collection<SmDetalleMotelUsuario> smDetalleMotelUsuarioCollection) {
-		this.smDetalleMotelUsuarioCollection = smDetalleMotelUsuarioCollection;
-	}
-
-	public Collection<SmReservacion> getSmReservacionCollection() {
-		return smReservacionCollection;
-	}
-
-	public void setSmReservacionCollection(Collection<SmReservacion> smReservacionCollection) {
-		this.smReservacionCollection = smReservacionCollection;
-	}
-
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (usrId != null ? usrId.hashCode() : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof SmUsuario)) {
-			return false;
-		}
-		SmUsuario other = (SmUsuario) object;
-		if ((this.usrId == null && other.usrId != null) || (this.usrId != null && !this.usrId.equals(other.usrId))) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "com.sistemaMotelario.core.entity.SmUsuario[ usrId=" + usrId + " ]";
-	}
-	
+    @Override
+    public String toString() {
+        return "com.sistemaMotelario.core.entity.SmUsuario[ usrId=" + usrId + " ]";
+    }
+    
 }

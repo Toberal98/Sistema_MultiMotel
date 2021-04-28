@@ -23,38 +23,38 @@ import javax.persistence.Table;
  * @author Dell
  */
 @Entity
-@Table(name = "sm_detalle_motel_usuario")
+@Table(name = "sm_accesos_usuario_motel")
 @NamedQueries({
-    @NamedQuery(name = "SmDetalleMotelUsuario.findAll", query = "SELECT s FROM SmDetalleMotelUsuario s"),
-    @NamedQuery(name = "SmDetalleMotelUsuario.findByDmuId", query = "SELECT s FROM SmDetalleMotelUsuario s WHERE s.dmuId = :dmuId")})
-public class SmDetalleMotelUsuario implements Serializable {
+    @NamedQuery(name = "SmAccesosUsuarioMotel.findAll", query = "SELECT s FROM SmAccesosUsuarioMotel s"),
+    @NamedQuery(name = "SmAccesosUsuarioMotel.findByAccid", query = "SELECT s FROM SmAccesosUsuarioMotel s WHERE s.accid = :accid")})
+public class SmAccesosUsuarioMotel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "dmu_id")
-    private Integer dmuId;
+    @Column(name = "Acc_id")
+    private Integer accid;
     @JoinColumn(name = "mo_id", referencedColumnName = "mo_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private SmMotel moId;
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private SmUsuario usrId;
 
-    public SmDetalleMotelUsuario() {
+    public SmAccesosUsuarioMotel() {
     }
 
-    public SmDetalleMotelUsuario(Integer dmuId) {
-        this.dmuId = dmuId;
+    public SmAccesosUsuarioMotel(Integer accid) {
+        this.accid = accid;
     }
 
-    public Integer getDmuId() {
-        return dmuId;
+    public Integer getAccid() {
+        return accid;
     }
 
-    public void setDmuId(Integer dmuId) {
-        this.dmuId = dmuId;
+    public void setAccid(Integer accid) {
+        this.accid = accid;
     }
 
     public SmMotel getMoId() {
@@ -76,18 +76,18 @@ public class SmDetalleMotelUsuario implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (dmuId != null ? dmuId.hashCode() : 0);
+        hash += (accid != null ? accid.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SmDetalleMotelUsuario)) {
+        if (!(object instanceof SmAccesosUsuarioMotel)) {
             return false;
         }
-        SmDetalleMotelUsuario other = (SmDetalleMotelUsuario) object;
-        if ((this.dmuId == null && other.dmuId != null) || (this.dmuId != null && !this.dmuId.equals(other.dmuId))) {
+        SmAccesosUsuarioMotel other = (SmAccesosUsuarioMotel) object;
+        if ((this.accid == null && other.accid != null) || (this.accid != null && !this.accid.equals(other.accid))) {
             return false;
         }
         return true;
@@ -95,7 +95,7 @@ public class SmDetalleMotelUsuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sistemaMotelario.core.entity.SmDetalleMotelUsuario[ dmuId=" + dmuId + " ]";
+        return "com.sistemaMotelario.core.entity.SmAccesosUsuarioMotel[ accid=" + accid + " ]";
     }
     
 }

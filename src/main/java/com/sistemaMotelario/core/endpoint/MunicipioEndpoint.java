@@ -6,14 +6,16 @@
 package com.sistemaMotelario.core.endpoint;
 
 import com.sistemaMotelario.core.entity.SmDepartamento;
+import com.sistemaMotelario.core.entity.SmMunicipio;
 import com.sistemaMotelario.core.service.DepartamentoService;
+import com.sistemaMotelario.core.service.MunicipiosService;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,18 +28,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @RestController
 @SessionAttributes({"usuario"})
-@RequestMapping("/moteles")
-public class motelesEndpoint {
-        
+@RequestMapping("/municipios")
+public class MunicipioEndpoint {
      public static Logger log = LoggerFactory.getLogger(motelesEndpoint.class);
     @Autowired
-    private DepartamentoService deparservice;
-        // filtramos los departamentos
-    @GetMapping(value = "/departamentos", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody
-        List <SmDepartamento>  findAll() {
-        List <SmDepartamento>  lsDepartment = deparservice.findAll();
-        return lsDepartment;
+    private MunicipiosService munservice;
+    
+    @RequestMapping(value = "/lista/{idDepartamento}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody 
+        List <SmMunicipio>  getMunicipios(@PathVariable Integer idDepartamento) {
+        List <SmMunicipio>  lsMunicipios = munservice.findByIdDepartamento(idDepartamento);
+        return lsMunicipios;
     }
     
 }

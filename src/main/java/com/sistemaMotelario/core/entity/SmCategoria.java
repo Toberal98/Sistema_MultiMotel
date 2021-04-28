@@ -6,7 +6,7 @@
 package com.sistemaMotelario.core.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,87 +22,87 @@ import javax.persistence.Table;
 
 /**
  *
- * @author oscar
+ * @author Dell
  */
 @Entity
 @Table(name = "sm_categoria")
 @NamedQueries({
-	@NamedQuery(name = "SmCategoria.findAll", query = "SELECT s FROM SmCategoria s"),
-	@NamedQuery(name = "SmCategoria.findByCatId", query = "SELECT s FROM SmCategoria s WHERE s.catId = :catId")})
+    @NamedQuery(name = "SmCategoria.findAll", query = "SELECT s FROM SmCategoria s"),
+    @NamedQuery(name = "SmCategoria.findByCatId", query = "SELECT s FROM SmCategoria s WHERE s.catId = :catId")})
 public class SmCategoria implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Id
+    private static final long serialVersionUID = 1L;
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "cat_id")
-	private Integer catId;
-	@Basic(optional = false)
+    private Integer catId;
+    @Basic(optional = false)
     @Lob
     @Column(name = "cat_tipo")
-	private String catTipo;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "catId")
-	private Collection<SmMotel> smMotelCollection;
+    private String catTipo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "catId")
+    private List<SmMotel> smMotelList;
 
-	public SmCategoria() {
-	}
+    public SmCategoria() {
+    }
 
-	public SmCategoria(Integer catId) {
-		this.catId = catId;
-	}
+    public SmCategoria(Integer catId) {
+        this.catId = catId;
+    }
 
-	public SmCategoria(Integer catId, String catTipo) {
-		this.catId = catId;
-		this.catTipo = catTipo;
-	}
+    public SmCategoria(Integer catId, String catTipo) {
+        this.catId = catId;
+        this.catTipo = catTipo;
+    }
 
-	public Integer getCatId() {
-		return catId;
-	}
+    public Integer getCatId() {
+        return catId;
+    }
 
-	public void setCatId(Integer catId) {
-		this.catId = catId;
-	}
+    public void setCatId(Integer catId) {
+        this.catId = catId;
+    }
 
-	public String getCatTipo() {
-		return catTipo;
-	}
+    public String getCatTipo() {
+        return catTipo;
+    }
 
-	public void setCatTipo(String catTipo) {
-		this.catTipo = catTipo;
-	}
+    public void setCatTipo(String catTipo) {
+        this.catTipo = catTipo;
+    }
 
-	public Collection<SmMotel> getSmMotelCollection() {
-		return smMotelCollection;
-	}
+    public List<SmMotel> getSmMotelList() {
+        return smMotelList;
+    }
 
-	public void setSmMotelCollection(Collection<SmMotel> smMotelCollection) {
-		this.smMotelCollection = smMotelCollection;
-	}
+    public void setSmMotelList(List<SmMotel> smMotelList) {
+        this.smMotelList = smMotelList;
+    }
 
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (catId != null ? catId.hashCode() : 0);
-		return hash;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (catId != null ? catId.hashCode() : 0);
+        return hash;
+    }
 
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof SmCategoria)) {
-			return false;
-		}
-		SmCategoria other = (SmCategoria) object;
-		if ((this.catId == null && other.catId != null) || (this.catId != null && !this.catId.equals(other.catId))) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof SmCategoria)) {
+            return false;
+        }
+        SmCategoria other = (SmCategoria) object;
+        if ((this.catId == null && other.catId != null) || (this.catId != null && !this.catId.equals(other.catId))) {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public String toString() {
-		return "com.sistemaMotelario.core.entity.SmCategoria[ catId=" + catId + " ]";
-	}
-	
+    @Override
+    public String toString() {
+        return "com.sistemaMotelario.core.entity.SmCategoria[ catId=" + catId + " ]";
+    }
+    
 }

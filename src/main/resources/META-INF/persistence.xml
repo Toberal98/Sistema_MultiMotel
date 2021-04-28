@@ -16,6 +16,7 @@
     <class>com.sistemaMotelario.core.entity.SmDetalleMotelUsuario</class>
     <class>com.sistemaMotelario.core.entity.SmMotel</class>
     <class>com.sistemaMotelario.core.entity.SmEstado</class>
+    <class>com.sistemaMotelario.core.entity.SmAccesosUsuarioMotel</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistema_multimoteles?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
