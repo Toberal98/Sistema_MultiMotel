@@ -22,6 +22,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Dell
@@ -33,8 +35,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "SmMotel.findByMoId", query = "SELECT s FROM SmMotel s WHERE s.moId = :moId"),
     @NamedQuery(name = "SmMotel.findByMoLatitud", query = "SELECT s FROM SmMotel s WHERE s.moLatitud = :moLatitud"),
     @NamedQuery(name = "SmMotel.findByMoLongitud", query = "SELECT s FROM SmMotel s WHERE s.moLongitud = :moLongitud"),
-    @NamedQuery(name = "SmMotel.findByMohoraApertura", query = "SELECT s FROM SmMotel s WHERE s.mohoraApertura = :mohoraApertura"),
-    @NamedQuery(name = "SmMotel.findByMohoraCierre", query = "SELECT s FROM SmMotel s WHERE s.mohoraCierre = :mohoraCierre")})
+    @NamedQuery(name = "SmMotel.findByMoHoraApertura", query = "SELECT s FROM SmMotel s WHERE s.moHoraApertura = :moHoraApertura"),
+    @NamedQuery(name = "SmMotel.findByMoHoraCierre", query = "SELECT s FROM SmMotel s WHERE s.moHoraCierre = :moHoraCierre")})
 public class SmMotel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,32 +61,36 @@ public class SmMotel implements Serializable {
     private double moLongitud;
     @Basic(optional = false)
     @Lob
-    @Column(name = "mo_fotoPortada")
-    private byte[] mofotoPortada;
+    @Column(name = "mo_foto_portada")
+    private byte[] moFotoPortada;
     @Basic(optional = false)
-    @Column(name = "mo_horaApertura")
-    private String mohoraApertura;
+    @Column(name = "mo_hora_apertura")
+    private String moHoraApertura;
     @Basic(optional = false)
-    @Column(name = "mo_horaCierre")
-    private String mohoraCierre;
+    @Column(name = "mo_hora_cierre")
+    private String moHoraCierre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "moId")
+    @JsonIgnore
     private List<SmValoracion> smValoracionList;
     @OneToMany(mappedBy = "moId")
+    @JsonIgnore
     private List<SmAccesosUsuarioMotel> smAccesosUsuarioMotelList;
     @JoinColumn(name = "cat_id", referencedColumnName = "cat_id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private SmCategoria catId;
     @JoinColumn(name = "mun_id", referencedColumnName = "mun_id")
     @ManyToOne(optional = false)
     private SmMunicipio munId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "moId")
+    @JsonIgnore
     private List<SmComentario> smComentarioList;
     @OneToMany(mappedBy = "moId")
+    @JsonIgnore
     private List<SmHabitacion> smHabitacionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "moId")
+    @JsonIgnore
     private List<SmFotos> smFotosList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "moId")
-    private List<SmDetalleMotelUsuario> smDetalleMotelUsuarioList;
 
     public SmMotel() {
     }
@@ -93,15 +99,15 @@ public class SmMotel implements Serializable {
         this.moId = moId;
     }
 
-    public SmMotel(Integer moId, String moNombre, String moDireccion, double moLatitud, double moLongitud, byte[] mofotoPortada, String mohoraApertura, String mohoraCierre) {
+    public SmMotel(Integer moId, String moNombre, String moDireccion, double moLatitud, double moLongitud, byte[] moFotoPortada, String moHoraApertura, String moHoraCierre) {
         this.moId = moId;
         this.moNombre = moNombre;
         this.moDireccion = moDireccion;
         this.moLatitud = moLatitud;
         this.moLongitud = moLongitud;
-        this.mofotoPortada = mofotoPortada;
-        this.mohoraApertura = mohoraApertura;
-        this.mohoraCierre = mohoraCierre;
+        this.moFotoPortada = moFotoPortada;
+        this.moHoraApertura = moHoraApertura;
+        this.moHoraCierre = moHoraCierre;
     }
 
     public Integer getMoId() {
@@ -144,28 +150,28 @@ public class SmMotel implements Serializable {
         this.moLongitud = moLongitud;
     }
 
-    public byte[] getMofotoPortada() {
-        return mofotoPortada;
+    public byte[] getMoFotoPortada() {
+        return moFotoPortada;
     }
 
-    public void setMofotoPortada(byte[] mofotoPortada) {
-        this.mofotoPortada = mofotoPortada;
+    public void setMoFotoPortada(byte[] moFotoPortada) {
+        this.moFotoPortada = moFotoPortada;
     }
 
-    public String getMohoraApertura() {
-        return mohoraApertura;
+    public String getMoHoraApertura() {
+        return moHoraApertura;
     }
 
-    public void setMohoraApertura(String mohoraApertura) {
-        this.mohoraApertura = mohoraApertura;
+    public void setMoHoraApertura(String moHoraApertura) {
+        this.moHoraApertura = moHoraApertura;
     }
 
-    public String getMohoraCierre() {
-        return mohoraCierre;
+    public String getMoHoraCierre() {
+        return moHoraCierre;
     }
 
-    public void setMohoraCierre(String mohoraCierre) {
-        this.mohoraCierre = mohoraCierre;
+    public void setMoHoraCierre(String moHoraCierre) {
+        this.moHoraCierre = moHoraCierre;
     }
 
     public List<SmValoracion> getSmValoracionList() {
@@ -222,14 +228,6 @@ public class SmMotel implements Serializable {
 
     public void setSmFotosList(List<SmFotos> smFotosList) {
         this.smFotosList = smFotosList;
-    }
-
-    public List<SmDetalleMotelUsuario> getSmDetalleMotelUsuarioList() {
-        return smDetalleMotelUsuarioList;
-    }
-
-    public void setSmDetalleMotelUsuarioList(List<SmDetalleMotelUsuario> smDetalleMotelUsuarioList) {
-        this.smDetalleMotelUsuarioList = smDetalleMotelUsuarioList;
     }
 
     @Override

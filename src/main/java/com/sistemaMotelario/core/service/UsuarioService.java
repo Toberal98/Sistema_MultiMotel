@@ -7,4 +7,5 @@ import com.sistemaMotelario.core.entity.SmUsuario;
 public interface UsuarioService {
 
 		public abstract SmUsuario login(SmUsuario Usuario);
+		public abstract SmUsuario createNewUser(SmUsuario Usuario);
 }

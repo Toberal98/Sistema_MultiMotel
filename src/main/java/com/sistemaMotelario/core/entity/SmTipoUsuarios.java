@@ -38,8 +38,8 @@ public class SmTipoUsuarios implements Serializable {
     private Integer tusrId;
     @Basic(optional = false)
     @Lob
-    @Column(name = "tusr_tipoUsuario")
-    private String tusrtipoUsuario;
+    @Column(name = "tusr_tipo_usuario")
+    private String tusrTipoUsuario;
     @OneToMany(mappedBy = "tusrId")
     private List<SmUsuario> smUsuarioList;
 
@@ -50,9 +50,9 @@ public class SmTipoUsuarios implements Serializable {
         this.tusrId = tusrId;
     }
 
-    public SmTipoUsuarios(Integer tusrId, String tusrtipoUsuario) {
+    public SmTipoUsuarios(Integer tusrId, String tusrTipoUsuario) {
         this.tusrId = tusrId;
-        this.tusrtipoUsuario = tusrtipoUsuario;
+        this.tusrTipoUsuario = tusrTipoUsuario;
     }
 
     public Integer getTusrId() {
@@ -63,12 +63,12 @@ public class SmTipoUsuarios implements Serializable {
         this.tusrId = tusrId;
     }
 
-    public String getTusrtipoUsuario() {
-        return tusrtipoUsuario;
+    public String getTusrTipoUsuario() {
+        return tusrTipoUsuario;
     }
 
-    public void setTusrtipoUsuario(String tusrtipoUsuario) {
-        this.tusrtipoUsuario = tusrtipoUsuario;
+    public void setTusrTipoUsuario(String tusrTipoUsuario) {
+        this.tusrTipoUsuario = tusrTipoUsuario;
     }
 
     public List<SmUsuario> getSmUsuarioList() {

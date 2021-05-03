@@ -20,12 +20,12 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	@Override
 	public SmUsuario login(SmUsuario Usuario) {
 		 try {
-				log.info("Buscando un registro de usuario en la base de datos por nombre de usuario: " + Usuario.getUsrCorreo());
-				SmUsuario usuario = user.findByCorreoAndPass(Usuario.getUsrCorreo(), Usuario.getUsrPassword());
-				if (usuario == null) {
-					log.warn("no se encontro ningun registro");
-					return null;
-				}
+                        log.info("Buscando un registro de usuario en la base de datos por nombre de usuario: " + Usuario.getUsrCorreo());
+                        SmUsuario usuario = user.findByCorreoAndPass(Usuario.getUsrCorreo(), Usuario.getUsrPassword());
+                        if (usuario == null) {
+                            log.warn("no se encontro ningun registro");
+                            return null;
+                        }
 				return usuario;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -33,6 +33,24 @@ public class UsuarioDaoImpl implements UsuarioDao{
 				return null;
 			}
 		
+	}
+	@Override
+	public SmUsuario createUser(SmUsuario Usuario) {
+		try {
+			
+	            log.info("Creando el usuario con correo : " + Usuario.getUsrCorreo());
+	            SmUsuario usuario = user.save(Usuario);
+	            	if (usuario == null) {
+		                log.warn("no se ha podido crear intentalo de nuevo");
+		                return null;
+	            		}
+	            	return usuario;
+			} catch (Exception e) {
+			e.printStackTrace();
+			log.error("posible causa: " + e.getCause());
+			return null;
+		}
+				
 	}
 
 }

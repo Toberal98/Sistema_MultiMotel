@@ -31,7 +31,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "SmComentario.findAll", query = "SELECT s FROM SmComentario s"),
     @NamedQuery(name = "SmComentario.findByComId", query = "SELECT s FROM SmComentario s WHERE s.comId = :comId"),
-    @NamedQuery(name = "SmComentario.findByComfechaComentario", query = "SELECT s FROM SmComentario s WHERE s.comfechaComentario = :comfechaComentario")})
+    @NamedQuery(name = "SmComentario.findByComFechaComentario", query = "SELECT s FROM SmComentario s WHERE s.comFechaComentario = :comFechaComentario")})
 public class SmComentario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,9 +45,9 @@ public class SmComentario implements Serializable {
     @Column(name = "com_comentario")
     private String comComentario;
     @Basic(optional = false)
-    @Column(name = "com_fechaComentario")
+    @Column(name = "com_fecha_comentario")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date comfechaComentario;
+    private Date comFechaComentario;
     @JoinColumn(name = "mo_id", referencedColumnName = "mo_id")
     @ManyToOne(optional = false)
     private SmMotel moId;
@@ -62,10 +62,10 @@ public class SmComentario implements Serializable {
         this.comId = comId;
     }
 
-    public SmComentario(Integer comId, String comComentario, Date comfechaComentario) {
+    public SmComentario(Integer comId, String comComentario, Date comFechaComentario) {
         this.comId = comId;
         this.comComentario = comComentario;
-        this.comfechaComentario = comfechaComentario;
+        this.comFechaComentario = comFechaComentario;
     }
 
     public Integer getComId() {
@@ -84,12 +84,12 @@ public class SmComentario implements Serializable {
         this.comComentario = comComentario;
     }
 
-    public Date getComfechaComentario() {
-        return comfechaComentario;
+    public Date getComFechaComentario() {
+        return comFechaComentario;
     }
 
-    public void setComfechaComentario(Date comfechaComentario) {
-        this.comfechaComentario = comfechaComentario;
+    public void setComFechaComentario(Date comFechaComentario) {
+        this.comFechaComentario = comFechaComentario;
     }
 
     public SmMotel getMoId() {

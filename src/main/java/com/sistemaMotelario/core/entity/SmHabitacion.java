@@ -31,7 +31,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "SmHabitacion.findAll", query = "SELECT s FROM SmHabitacion s"),
     @NamedQuery(name = "SmHabitacion.findByHaId", query = "SELECT s FROM SmHabitacion s WHERE s.haId = :haId"),
-    @NamedQuery(name = "SmHabitacion.findByHanumeroHabitacion", query = "SELECT s FROM SmHabitacion s WHERE s.hanumeroHabitacion = :hanumeroHabitacion"),
+    @NamedQuery(name = "SmHabitacion.findByHaNumeroHabitacion", query = "SELECT s FROM SmHabitacion s WHERE s.haNumeroHabitacion = :haNumeroHabitacion"),
     @NamedQuery(name = "SmHabitacion.findByHaPrecio", query = "SELECT s FROM SmHabitacion s WHERE s.haPrecio = :haPrecio"),
     @NamedQuery(name = "SmHabitacion.findByHaTiempo", query = "SELECT s FROM SmHabitacion s WHERE s.haTiempo = :haTiempo")})
 public class SmHabitacion implements Serializable {
@@ -44,15 +44,15 @@ public class SmHabitacion implements Serializable {
     private Integer haId;
     @Basic(optional = false)
     @Lob
-    @Column(name = "ha_nombreHabitacion")
-    private String hanombreHabitacion;
+    @Column(name = "ha_nombre_habitacion")
+    private String haNombreHabitacion;
     @Basic(optional = false)
     @Lob
-    @Column(name = "ha_tipoDeHabitacion")
-    private String hatipoDeHabitacion;
+    @Column(name = "ha_tipo_de_habitacion")
+    private String haTipoDeHabitacion;
     @Basic(optional = false)
-    @Column(name = "ha_numeroHabitacion")
-    private int hanumeroHabitacion;
+    @Column(name = "ha_numero_habitacion")
+    private int haNumeroHabitacion;
     @Basic(optional = false)
     @Column(name = "ha_precio")
     private double haPrecio;
@@ -83,11 +83,11 @@ public class SmHabitacion implements Serializable {
         this.haId = haId;
     }
 
-    public SmHabitacion(Integer haId, String hanombreHabitacion, String hatipoDeHabitacion, int hanumeroHabitacion, double haPrecio, String haTiempo, String haDescripcion) {
+    public SmHabitacion(Integer haId, String haNombreHabitacion, String haTipoDeHabitacion, int haNumeroHabitacion, double haPrecio, String haTiempo, String haDescripcion) {
         this.haId = haId;
-        this.hanombreHabitacion = hanombreHabitacion;
-        this.hatipoDeHabitacion = hatipoDeHabitacion;
-        this.hanumeroHabitacion = hanumeroHabitacion;
+        this.haNombreHabitacion = haNombreHabitacion;
+        this.haTipoDeHabitacion = haTipoDeHabitacion;
+        this.haNumeroHabitacion = haNumeroHabitacion;
         this.haPrecio = haPrecio;
         this.haTiempo = haTiempo;
         this.haDescripcion = haDescripcion;
@@ -101,28 +101,28 @@ public class SmHabitacion implements Serializable {
         this.haId = haId;
     }
 
-    public String getHanombreHabitacion() {
-        return hanombreHabitacion;
+    public String getHaNombreHabitacion() {
+        return haNombreHabitacion;
     }
 
-    public void setHanombreHabitacion(String hanombreHabitacion) {
-        this.hanombreHabitacion = hanombreHabitacion;
+    public void setHaNombreHabitacion(String haNombreHabitacion) {
+        this.haNombreHabitacion = haNombreHabitacion;
     }
 
-    public String getHatipoDeHabitacion() {
-        return hatipoDeHabitacion;
+    public String getHaTipoDeHabitacion() {
+        return haTipoDeHabitacion;
     }
 
-    public void setHatipoDeHabitacion(String hatipoDeHabitacion) {
-        this.hatipoDeHabitacion = hatipoDeHabitacion;
+    public void setHaTipoDeHabitacion(String haTipoDeHabitacion) {
+        this.haTipoDeHabitacion = haTipoDeHabitacion;
     }
 
-    public int getHanumeroHabitacion() {
-        return hanumeroHabitacion;
+    public int getHaNumeroHabitacion() {
+        return haNumeroHabitacion;
     }
 
-    public void setHanumeroHabitacion(int hanumeroHabitacion) {
-        this.hanumeroHabitacion = hanumeroHabitacion;
+    public void setHaNumeroHabitacion(int haNumeroHabitacion) {
+        this.haNumeroHabitacion = haNumeroHabitacion;
     }
 
     public double getHaPrecio() {

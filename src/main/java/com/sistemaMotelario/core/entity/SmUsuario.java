@@ -5,7 +5,6 @@
  */
 package com.sistemaMotelario.core.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -22,6 +21,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -48,20 +49,20 @@ public class SmUsuario implements Serializable {
     @Lob
     @Column(name = "usr_password")
     private String usrPassword;
+
     @OneToMany(mappedBy = "usrId")
+    @JsonIgnore
     private List<SmAccesosUsuarioMotel> smAccesosUsuarioMotelList;
     @JoinColumn(name = "mun_id", referencedColumnName = "mun_id")
     @ManyToOne
     private SmMunicipio munId;
+    @JsonIgnore
     @JoinColumn(name = "tusr_id", referencedColumnName = "tusr_id")
     @ManyToOne
     private SmTipoUsuarios tusrId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrId")
     @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrId")
     private List<SmComentario> smComentarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrId")
-    @JsonIgnore
-    private List<SmDetalleMotelUsuario> smDetalleMotelUsuarioList;
     @JsonIgnore
     @OneToMany(mappedBy = "usrId")
     private List<SmReservacion> smReservacionList;
@@ -133,14 +134,6 @@ public class SmUsuario implements Serializable {
 
     public void setSmComentarioList(List<SmComentario> smComentarioList) {
         this.smComentarioList = smComentarioList;
-    }
-
-    public List<SmDetalleMotelUsuario> getSmDetalleMotelUsuarioList() {
-        return smDetalleMotelUsuarioList;
-    }
-
-    public void setSmDetalleMotelUsuarioList(List<SmDetalleMotelUsuario> smDetalleMotelUsuarioList) {
-        this.smDetalleMotelUsuarioList = smDetalleMotelUsuarioList;
     }
 
     public List<SmReservacion> getSmReservacionList() {

@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MunicipiosServiceImpl implements MunicipiosService{
 
-        public static Logger log = LoggerFactory.getLogger(DepartamentoServiceImpl.class);
+    public static Logger log = LoggerFactory.getLogger(DepartamentoServiceImpl.class);
     @Autowired
     private MunicipioDao mundao;
     @Override

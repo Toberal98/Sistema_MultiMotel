@@ -30,7 +30,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "SmReservacion.findAll", query = "SELECT s FROM SmReservacion s"),
     @NamedQuery(name = "SmReservacion.findByResId", query = "SELECT s FROM SmReservacion s WHERE s.resId = :resId"),
-    @NamedQuery(name = "SmReservacion.findByRescantidadaPagar", query = "SELECT s FROM SmReservacion s WHERE s.rescantidadaPagar = :rescantidadaPagar"),
+    @NamedQuery(name = "SmReservacion.findByResCantidadApagar", query = "SELECT s FROM SmReservacion s WHERE s.resCantidadApagar = :resCantidadApagar"),
     @NamedQuery(name = "SmReservacion.findByFecha", query = "SELECT s FROM SmReservacion s WHERE s.fecha = :fecha"),
     @NamedQuery(name = "SmReservacion.findByHora", query = "SELECT s FROM SmReservacion s WHERE s.hora = :hora")})
 public class SmReservacion implements Serializable {
@@ -42,8 +42,8 @@ public class SmReservacion implements Serializable {
     @Column(name = "res_id")
     private Integer resId;
     @Basic(optional = false)
-    @Column(name = "res_cantidadaPagar")
-    private double rescantidadaPagar;
+    @Column(name = "res_cantidad_apagar")
+    private double resCantidadApagar;
     @Basic(optional = false)
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
@@ -65,9 +65,9 @@ public class SmReservacion implements Serializable {
         this.resId = resId;
     }
 
-    public SmReservacion(Integer resId, double rescantidadaPagar, Date fecha, String hora) {
+    public SmReservacion(Integer resId, double resCantidadApagar, Date fecha, String hora) {
         this.resId = resId;
-        this.rescantidadaPagar = rescantidadaPagar;
+        this.resCantidadApagar = resCantidadApagar;
         this.fecha = fecha;
         this.hora = hora;
     }
@@ -80,12 +80,12 @@ public class SmReservacion implements Serializable {
         this.resId = resId;
     }
 
-    public double getRescantidadaPagar() {
-        return rescantidadaPagar;
+    public double getResCantidadApagar() {
+        return resCantidadApagar;
     }
 
-    public void setRescantidadaPagar(double rescantidadaPagar) {
-        this.rescantidadaPagar = rescantidadaPagar;
+    public void setResCantidadApagar(double resCantidadApagar) {
+        this.resCantidadApagar = resCantidadApagar;
     }
 
     public Date getFecha() {

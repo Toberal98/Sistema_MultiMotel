@@ -22,9 +22,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public SmUsuario login(SmUsuario Usuario) {
 		
 		try {
-			log.info("Extrayendo Usuario desde la base de datos");
-			SmUsuario usr = usu.login(Usuario);
-			if (usr == null) {
+                    log.info("Extrayendo Usuario desde la base de datos");
+                    SmUsuario usr = usu.login(Usuario);
+                    if (usr == null) {
                 log.warn("usuario no fue encontrado");
                 return null;
         }
@@ -33,6 +33,22 @@ public class UsuarioServiceImpl implements UsuarioService{
 			 e.printStackTrace();
              log.error(", posible causa: " + e.getCause());
              return null;
+		}
+	}
+	@Override
+	public SmUsuario createNewUser(SmUsuario Usuario) {
+		try {
+            log.info("Creando nuevo usuario");
+            SmUsuario usr = usu.createUser(Usuario);
+            if (usr == null) {
+            	log.warn("usuario no fue creado");
+            	return null;
+            }
+		return usr;
+		} catch (Exception e) {
+			 e.printStackTrace();
+		     log.error(", posible causa: " + e.getCause());
+		     return null;
 		}
 	}
 

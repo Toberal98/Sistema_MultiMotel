@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,5 +36,15 @@ public class UsuarioEndpoint {
 	public SmUsuario login(@Validated @RequestBody SmUsuario user, Model model) {
 		SmUsuario usr = usrService.login(user);
 		return usr;
+	}
+	
+	@PostMapping(value = "/newUser", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody 
+	public ResponseEntity<SmUsuario> createUser(@RequestBody SmUsuario usr) {
+		SmUsuario usuario = usrService.createNewUser(usr);
+		if(usuario == null) {
+			return new ResponseEntity<SmUsuario>(usuario, HttpStatus.FORBIDDEN);
+		}
+		return new ResponseEntity<SmUsuario>(usuario, HttpStatus.CREATED);
 	}
 }

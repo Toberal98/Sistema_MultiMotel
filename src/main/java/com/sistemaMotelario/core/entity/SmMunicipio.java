@@ -5,7 +5,6 @@
  */
 package com.sistemaMotelario.core.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -22,6 +21,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -44,8 +45,8 @@ public class SmMunicipio implements Serializable {
     @Lob
     @Column(name = "mun_nombre")
     private String munNombre;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "munId")
+    @JsonIgnore
     private List<SmMotel> smMotelList;
     @OneToMany(mappedBy = "munId")
     @JsonIgnore
