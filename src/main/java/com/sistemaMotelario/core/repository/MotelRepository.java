@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.sistemaMotelario.core.entity.SmHabitacion;
 import com.sistemaMotelario.core.entity.SmMotel;
 
 
@@ -20,4 +22,9 @@ public interface MotelRepository  extends CrudRepository<SmMotel, Integer>{
 			@Param("municipio") int municipio,
 			@Param("categoria") int categoria,
 			@Param("nombre") String nombre);
+	
+	
+	public abstract SmMotel findByMoId(int moId);
+	
+	
 }

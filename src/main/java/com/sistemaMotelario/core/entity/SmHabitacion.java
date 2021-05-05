@@ -22,6 +22,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Dell
@@ -64,16 +66,21 @@ public class SmHabitacion implements Serializable {
     @Column(name = "ha_descripcion")
     private String haDescripcion;
     @OneToMany(mappedBy = "haId")
+    @JsonIgnore
     private List<SmDetalleHabitacion> smDetalleHabitacionList;
     @JoinColumn(name = "es_id", referencedColumnName = "est_id")
     @ManyToOne
+    @JsonIgnore
     private SmEstado esId;
     @JoinColumn(name = "mo_id", referencedColumnName = "mo_id")
     @ManyToOne
+    @JsonIgnore
     private SmMotel moId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "haId")
+    @JsonIgnore
     private List<SmFotos> smFotosList;
     @OneToMany(mappedBy = "haId")
+    @JsonIgnore
     private List<SmReservacion> smReservacionList;
 
     public SmHabitacion() {

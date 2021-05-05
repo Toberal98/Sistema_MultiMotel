@@ -6,6 +6,7 @@
 package com.sistemaMotelario.core.endpoint;
 
 import com.sistemaMotelario.core.entity.SmDepartamento;
+import com.sistemaMotelario.core.entity.SmHabitacion;
 import com.sistemaMotelario.core.entity.SmMotel;
 import com.sistemaMotelario.core.entity.SmMunicipio;
 import com.sistemaMotelario.core.service.DepartamentoService;
@@ -65,6 +66,26 @@ public class motelesEndpoint {
         	return new ResponseEntity<List<SmMotel>>(motelFiltrado, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<List<SmMotel>>(motelFiltrado, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/oneMotel/{moId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody 
+    ResponseEntity<SmMotel>  getMotelesID(@PathVariable int moId ) {
+    	SmMotel  mot = motels.findByMoId(moId);
+        if(mot == null) {
+        	return new ResponseEntity<SmMotel>(mot, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<SmMotel>(mot, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/habitacion/{moId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody 
+    ResponseEntity<List<SmHabitacion>>  getHabitaciones(@PathVariable int moId ) {
+    	List<SmHabitacion>  h = motels.findHabitacion(moId);
+        if(h == null) {
+        	return new ResponseEntity<List<SmHabitacion>>(h, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<List<SmHabitacion>>(h, HttpStatus.OK);
     }
     			
 }

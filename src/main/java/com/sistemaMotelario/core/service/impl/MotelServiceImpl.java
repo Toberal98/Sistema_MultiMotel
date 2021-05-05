@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sistemaMotelario.core.dao.MotelDao;
+import com.sistemaMotelario.core.entity.SmHabitacion;
 import com.sistemaMotelario.core.entity.SmMotel;
 import com.sistemaMotelario.core.entity.SmMunicipio;
 import com.sistemaMotelario.core.service.MotelService;
@@ -40,6 +41,38 @@ public class MotelServiceImpl implements MotelService{
             List<SmMotel> m = motelDao.findByMunIdandCatId(idmunicipio, idcategoria,nombre);
             if (m == null) {
                     log.warn("Moteles filtrados por municipio y/o categoria no fueron encontrados");
+                    return null;
+            }
+            return m;
+        } catch (Exception e) {
+                e.printStackTrace();
+                log.error(", posible causa: " + e.getCause());
+                return null;
+        }
+	}
+	@Override
+	public SmMotel findByMoId(int moId) {
+		try {
+            log.info("Extrayendo moteles  filtrados por id  desde la base de datos");
+            SmMotel m =  motelDao.findByMoId(moId);
+            if (m == null) {
+                    log.warn("Moteles filtrados id no fueron encontrados");
+                    return null;
+            }
+            return m;
+        } catch (Exception e) {
+                e.printStackTrace();
+                log.error(", posible causa: " + e.getCause());
+                return null;
+        }
+	}
+	@Override
+	public List<SmHabitacion> findHabitacion(int moId) {
+		try {
+            log.info("Extrayendo las habitaciones en base al motel seleccionado");
+            List<SmHabitacion> m =  motelDao.findHabitacion(moId);
+            if (m == null) {
+                    log.warn("no es posible encontrar habitaciones para este motel");
                     return null;
             }
             return m;
