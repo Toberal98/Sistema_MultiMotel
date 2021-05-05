@@ -77,7 +77,6 @@ public class SmHabitacion implements Serializable {
     @JsonIgnore
     private SmMotel moId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "haId")
-    @JsonIgnore
     private List<SmFotos> smFotosList;
     @OneToMany(mappedBy = "haId")
     @JsonIgnore
