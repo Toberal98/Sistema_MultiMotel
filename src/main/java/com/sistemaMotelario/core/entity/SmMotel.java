@@ -21,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -70,7 +71,6 @@ public class SmMotel implements Serializable {
     @Column(name = "mo_hora_cierre")
     private String moHoraCierre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "moId")
-    @JsonIgnore
     private List<SmValoracion> smValoracionList;
     @OneToMany(mappedBy = "moId")
     @JsonIgnore
@@ -81,6 +81,7 @@ public class SmMotel implements Serializable {
     private SmCategoria catId;
     @JoinColumn(name = "mun_id", referencedColumnName = "mun_id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private SmMunicipio munId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "moId")
     @JsonIgnore
@@ -91,8 +92,18 @@ public class SmMotel implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "moId")
     @JsonIgnore
     private List<SmFotos> smFotosList;
+    @Transient
+    private double rating; 
 
-    public SmMotel() {
+    public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
+	public SmMotel() {
     }
 
     public SmMotel(Integer moId) {

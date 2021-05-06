@@ -1,6 +1,7 @@
 package com.sistemaMotelario.core.dao.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +13,11 @@ import com.sistemaMotelario.core.entity.SmFotos;
 import com.sistemaMotelario.core.entity.SmHabitacion;
 import com.sistemaMotelario.core.entity.SmMotel;
 import com.sistemaMotelario.core.entity.SmMunicipio;
+import com.sistemaMotelario.core.entity.SmValoracion;
 import com.sistemaMotelario.core.repository.FotoRepository;
 import com.sistemaMotelario.core.repository.HabitacionRepository;
 import com.sistemaMotelario.core.repository.MotelRepository;
+import com.sistemaMotelario.core.repository.ValoracionRepository;
 
 
 @Component
@@ -27,11 +30,26 @@ public class MotelDaoImpl implements MotelDao{
     private HabitacionRepository hr;
     @Autowired
     private FotoRepository f;
+    @Autowired
+    private ValoracionRepository vr;
 	@Override
 	public List<SmMotel> findAll() {
         try {
             log.info("Extrayendo moteles desde la base de datos");
             List<SmMotel> m = (List<SmMotel>) motel.findAll();
+            List<SmValoracion> v = vr.findAll();
+            for (SmMotel SmMotel : m) {
+            	double promedio = 0.0;
+            	double suma = 0.0;
+				List<SmValoracion> ls = v.stream().filter(sv -> sv.getMoId().getMoId() == SmMotel.getMoId()).collect(Collectors.toList());
+				for (SmValoracion smValoracion : ls) {
+					
+					suma += smValoracion.getValValoracion();
+					
+				}
+				promedio = suma / 5;
+				SmMotel.setRating(promedio);
+			}
             if (m == null) {
                     log.warn("moteles no fueron encontrados");
                     return null;
@@ -66,6 +84,18 @@ public class MotelDaoImpl implements MotelDao{
 		try {
             log.info("Extrayendo moteles  filtrados por id desde la base de datos");
             SmMotel m =  motel.findByMoId(moId);
+            List<SmValoracion> v = vr.findAll();
+            	double promedio = 0.0;
+            	double suma = 0.0;
+				List<SmValoracion> ls = v.stream().filter(sv -> sv.getMoId().getMoId() == m.getMoId()).collect(Collectors.toList());
+				for (SmValoracion smValoracion : ls) {
+					
+					suma += smValoracion.getValValoracion();
+					
+				}
+				promedio = suma / 5;
+				m.setRating(promedio);
+			
             if (m == null) {
                     log.warn("Moteles filtrados por id no fue encontrado");
                     return null;

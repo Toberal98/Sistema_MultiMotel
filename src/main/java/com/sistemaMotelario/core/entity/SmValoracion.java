@@ -18,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Dell
@@ -41,6 +43,7 @@ public class SmValoracion implements Serializable {
     private int valValoracion;
     @JoinColumn(name = "mo_id", referencedColumnName = "mo_id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private SmMotel moId;
 
     public SmValoracion() {
