@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sistemaMotelario.core.dao.MotelDao;
+import com.sistemaMotelario.core.entity.SmFotos;
 import com.sistemaMotelario.core.entity.SmHabitacion;
 import com.sistemaMotelario.core.entity.SmMotel;
 import com.sistemaMotelario.core.entity.SmMunicipio;
@@ -67,10 +68,10 @@ public class MotelServiceImpl implements MotelService{
         }
 	}
 	@Override
-	public List<SmHabitacion> findHabitacion(int moId) {
+	public List<SmFotos> findHabitacion(int moId) {
 		try {
             log.info("Extrayendo las habitaciones en base al motel seleccionado");
-            List<SmHabitacion> m =  motelDao.findHabitacion(moId);
+            List<SmFotos> m =  motelDao.findHabitacion(moId);
             if (m == null) {
                     log.warn("no es posible encontrar habitaciones para este motel");
                     return null;

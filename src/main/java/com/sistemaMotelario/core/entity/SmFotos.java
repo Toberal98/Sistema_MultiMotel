@@ -48,7 +48,6 @@ public class SmFotos implements Serializable {
     private String fhDescripcion;
     @JoinColumn(name = "ha_id", referencedColumnName = "ha_id")
     @ManyToOne(optional = false)
-    @JsonIgnore
     private SmHabitacion haId;
     @JoinColumn(name = "mo_id", referencedColumnName = "mo_id")
     @ManyToOne(optional = false)

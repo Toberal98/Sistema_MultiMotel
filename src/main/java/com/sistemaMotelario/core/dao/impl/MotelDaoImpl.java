@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sistemaMotelario.core.dao.MotelDao;
+import com.sistemaMotelario.core.entity.SmFotos;
 import com.sistemaMotelario.core.entity.SmHabitacion;
 import com.sistemaMotelario.core.entity.SmMotel;
 import com.sistemaMotelario.core.entity.SmMunicipio;
+import com.sistemaMotelario.core.repository.FotoRepository;
 import com.sistemaMotelario.core.repository.HabitacionRepository;
 import com.sistemaMotelario.core.repository.MotelRepository;
 
@@ -23,6 +25,8 @@ public class MotelDaoImpl implements MotelDao{
     private MotelRepository motel;
     @Autowired
     private HabitacionRepository hr;
+    @Autowired
+    private FotoRepository f;
 	@Override
 	public List<SmMotel> findAll() {
         try {
@@ -74,10 +78,10 @@ public class MotelDaoImpl implements MotelDao{
         }
 	}
 	@Override
-	public List<SmHabitacion> findHabitacion(int moId) {
+	public List<SmFotos> findHabitacion(int moId) {
 		try {
             log.info("Extrayendo habitaciones por motel");
-            List<SmHabitacion> m = hr.findHabitaciones(moId);
+            List<SmFotos> m = f.findHabitaciones(moId);
             if (m == null) {
                     log.warn("habitaciones por motel encontradas");
                     return null;
