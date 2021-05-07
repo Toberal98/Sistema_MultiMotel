@@ -12,9 +12,9 @@ import com.sistemaMotelario.core.entity.SmHabitacion;
 
 
 @Repository
-public interface HabitacionRepository extends CrudRepository<SmFotos, Integer>{
+public interface HabitacionRepository extends CrudRepository<SmHabitacion, Integer>{
 
-	@Query(nativeQuery = true, value = "select * from sm_fotos f inner join sm_habitacion h on f.ha_id = h.ha_id "
-			+ "where h.mo_id = :motel and f.fh_descripcion = 'Portada'")
-	public abstract List<SmFotos> findHabitaciones(@Param("motel") int moId);
+	@Query(nativeQuery = true, value = "select * from sm_Habitacion h inner join sm_fotos f on h.ha_id = f.ha_id"
+			+ " inner join sm_estado e on e.est_id = h.es_id where h.ha_id =:habitacion")
+	public abstract SmHabitacion findById(@Param("habitacion") int idHabitacion);
 }

@@ -88,5 +88,15 @@ public class motelesEndpoint {
         }
         return new ResponseEntity<List<SmFotos>>(h, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/habitacionIndividual/{idHabitacion}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody 
+    ResponseEntity<SmHabitacion>  getHabitacionIndividual(@PathVariable int idHabitacion ) {
+    	SmHabitacion h = motels.findById(idHabitacion);
+        if(h == null) {
+        	return new ResponseEntity<SmHabitacion>(h, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<SmHabitacion>(h, HttpStatus.OK);
+    }
     			
 }

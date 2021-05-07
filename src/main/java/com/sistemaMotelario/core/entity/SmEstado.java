@@ -19,6 +19,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Dell
@@ -45,6 +47,7 @@ public class SmEstado implements Serializable {
     @Column(name = "est_orden")
     private int estOrden;
     @OneToMany(mappedBy = "esId")
+    @JsonIgnore
     private List<SmHabitacion> smHabitacionList;
 
     public SmEstado() {

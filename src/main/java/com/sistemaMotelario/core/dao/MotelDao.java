@@ -12,5 +12,6 @@ public interface MotelDao {
 	public abstract List<SmMotel> findByMunIdandCatId(int idmunicipio, int idcategoria, String nombre);
 	public abstract SmMotel findByMoId(int moId);
 	public abstract List<SmFotos> findHabitacion(int moId);
+	public abstract SmHabitacion findById(int idHabitacion);
 
 }

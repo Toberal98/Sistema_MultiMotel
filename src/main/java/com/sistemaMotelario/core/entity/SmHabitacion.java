@@ -70,14 +70,12 @@ public class SmHabitacion implements Serializable {
     private List<SmDetalleHabitacion> smDetalleHabitacionList;
     @JoinColumn(name = "es_id", referencedColumnName = "est_id")
     @ManyToOne
-    @JsonIgnore
     private SmEstado esId;
     @JoinColumn(name = "mo_id", referencedColumnName = "mo_id")
     @ManyToOne
     @JsonIgnore
     private SmMotel moId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "haId")
-    @JsonIgnore
     private List<SmFotos> smFotosList;
     @OneToMany(mappedBy = "haId")
     @JsonIgnore

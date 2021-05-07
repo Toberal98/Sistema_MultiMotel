@@ -123,5 +123,21 @@ public class MotelDaoImpl implements MotelDao{
                 return null;
         }
 	}
+	@Override
+	public SmHabitacion findById(int idHabitacion) {
+		try {
+            log.info("Extrayendo habitacion");
+            SmHabitacion habitacion = hr.findById(idHabitacion);
+            if (habitacion == null) {
+                    log.warn("habitaciones por motel encontradas");
+                    return null;
+            }
+            return habitacion;
+        } catch (Exception e) {
+                e.printStackTrace();
+                log.error(", posible causa: " + e.getCause());
+                return null;
+        }
+	}
 
 }

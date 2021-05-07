@@ -83,5 +83,21 @@ public class MotelServiceImpl implements MotelService{
                 return null;
         }
 	}
+	@Override
+	public SmHabitacion findById(int idHabitacion) {
+		try {
+            log.info("Extrayendo la habitacion ");
+            SmHabitacion ha =  motelDao.findById(idHabitacion);
+            if (ha == null) {
+                    log.warn("no es posible encontrar habitaciones");
+                    return null;
+            }
+            return ha;
+        } catch (Exception e) {
+                e.printStackTrace();
+                log.error(", posible causa: " + e.getCause());
+                return null;
+        }
+	}
 	
 }
