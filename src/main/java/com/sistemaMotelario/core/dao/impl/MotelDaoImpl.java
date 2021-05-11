@@ -84,6 +84,12 @@ public class MotelDaoImpl implements MotelDao{
 		try {
             log.info("Extrayendo moteles  filtrados por id desde la base de datos");
             SmMotel m =  motel.findByMoId(moId);
+			
+            if (m == null) {
+                    log.warn("Moteles filtrados por id no fue encontrado");
+                    return null;
+            }
+			
             List<SmValoracion> v = vr.findAll();
             	double promedio = 0.0;
             	double suma = 0.0;
@@ -95,11 +101,6 @@ public class MotelDaoImpl implements MotelDao{
 				}
 				promedio = suma / 5;
 				m.setRating(promedio);
-			
-            if (m == null) {
-                    log.warn("Moteles filtrados por id no fue encontrado");
-                    return null;
-            }
             return m;
         } catch (Exception e) {
                 e.printStackTrace();
@@ -108,10 +109,14 @@ public class MotelDaoImpl implements MotelDao{
         }
 	}
 	@Override
-	public List<SmFotos> findHabitacion(int moId) {
+	public List<SmHabitacion> findHabitacion(int moId) {
 		try {
             log.info("Extrayendo habitaciones por motel");
-            List<SmFotos> m = f.findHabitaciones(moId);
+            List<SmHabitacion> m = hr.findByMoId(moId);
+			for (SmHabitacion smHabitacion : m) {
+				 List<SmFotos> listaNueva = smHabitacion.getSmFotosList().stream().filter(f -> f.getFhDescripcion().equalsIgnoreCase("Portada")).collect(Collectors.toList());
+				 smHabitacion.setSmFotosList(listaNueva);
+			}
             if (m == null) {
                     log.warn("habitaciones por motel encontradas");
                     return null;
