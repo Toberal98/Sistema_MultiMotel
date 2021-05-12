@@ -81,12 +81,12 @@ public class motelesEndpoint {
     
     @RequestMapping(value = "/habitacion/{moId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody 
-    ResponseEntity<List<SmFotos>>  getHabitaciones(@PathVariable int moId ) {
-    	List<SmFotos>  h = motels.findHabitacion(moId);
+    ResponseEntity<List<SmHabitacion>>  getHabitaciones(@PathVariable int moId ) {
+    	List<SmHabitacion>  h = motels.findHabitacion(moId);
         if(h == null) {
-        	return new ResponseEntity<List<SmFotos>>(h, HttpStatus.BAD_REQUEST);
+        	return new ResponseEntity<List<SmHabitacion>>(h, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<List<SmFotos>>(h, HttpStatus.OK);
+        return new ResponseEntity<List<SmHabitacion>>(h, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/habitacionIndividual/{idHabitacion}", produces = MediaType.APPLICATION_JSON_VALUE)
