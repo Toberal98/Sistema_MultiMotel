@@ -46,6 +46,7 @@ public class SmFotos implements Serializable {
     @Lob
     @Column(name = "fh_descripcion")
     private String fhDescripcion;
+	 @JsonIgnore
     @JoinColumn(name = "ha_id", referencedColumnName = "ha_id")
     @ManyToOne(optional = false)
     private SmHabitacion haId;

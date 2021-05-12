@@ -68,10 +68,10 @@ public class MotelServiceImpl implements MotelService{
         }
 	}
 	@Override
-	public List<SmFotos> findHabitacion(int moId) {
+	public List<SmHabitacion> findHabitacion(int moId) {
 		try {
             log.info("Extrayendo las habitaciones en base al motel seleccionado");
-            List<SmFotos> m =  motelDao.findHabitacion(moId);
+            List<SmHabitacion> m =  motelDao.findHabitacion(moId);
             if (m == null) {
                     log.warn("no es posible encontrar habitaciones para este motel");
                     return null;
