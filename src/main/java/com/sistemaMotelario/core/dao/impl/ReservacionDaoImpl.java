@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sistemaMotelario.core.dao.ReservacionDao;
+import com.sistemaMotelario.core.entity.SmHabitacion;
 import com.sistemaMotelario.core.entity.SmMotel;
 import com.sistemaMotelario.core.entity.SmReservacion;
 import com.sistemaMotelario.core.entity.SmUsuario;
@@ -27,6 +28,7 @@ public class ReservacionDaoImpl implements ReservacionDao{
                     log.warn("No hay reservaciones que mostrar");
                     return null;
             }
+		
             return r;
         } catch (Exception e) {
                 e.printStackTrace();
@@ -44,6 +46,13 @@ public class ReservacionDaoImpl implements ReservacionDao{
                     log.warn("No hay reservaciones que mostrar para este usuario");
                     return null;
             }
+				for (SmReservacion smReservacion : r) {
+				SmUsuario us = new SmUsuario();
+				us.setUsrCorreo(smReservacion.getUsrId().getUsrCorreo());
+				us.setMunId(smReservacion.getUsrId().getMunId());
+				smReservacion.setUsrId(us);
+				smReservacion.getHaId().setSmFotosList(null);
+			}
             return r;
         } catch (Exception e) {
                 e.printStackTrace();
