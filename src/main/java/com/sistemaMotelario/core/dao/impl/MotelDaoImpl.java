@@ -72,6 +72,20 @@ public class MotelDaoImpl implements MotelDao{
                     log.warn("Moteles filtrados por municipio y/o categoria no fueron encontrados");
                     return null;
             }
+			            List<SmValoracion> v = vr.findAll();
+
+			    for (SmMotel SmMotel : m) {
+            	double promedio = 0.0;
+            	double suma = 0.0;
+				List<SmValoracion> ls = v.stream().filter(sv -> sv.getMoId().getMoId() == SmMotel.getMoId()).collect(Collectors.toList());
+				for (SmValoracion smValoracion : ls) {
+					
+					suma += smValoracion.getValValoracion();
+					
+				}
+				promedio = suma / 5;
+				SmMotel.setRating(promedio);
+			}
             return m;
         } catch (Exception e) {
                 e.printStackTrace();
