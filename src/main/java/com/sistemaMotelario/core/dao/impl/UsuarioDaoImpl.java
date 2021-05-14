@@ -20,12 +20,12 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	@Override
 	public SmUsuario login(SmUsuario Usuario) {
 		 try {
-                        log.info("Buscando un registro de usuario en la base de datos por nombre de usuario: " + Usuario.getUsrCorreo());
-                        SmUsuario usuario = user.findByCorreoAndPass(Usuario.getUsrCorreo(), Usuario.getUsrPassword());
-                        if (usuario == null) {
-                            log.warn("no se encontro ningun registro");
-                            return null;
-                        }
+            log.info("Buscando un registro de usuario en la base de datos por nombre de usuario: " + Usuario.getUsrCorreo());
+            SmUsuario usuario = user.findByCorreoAndPass(Usuario.getUsrCorreo(), Usuario.getUsrPassword());
+            if (usuario == null) {
+                log.warn("no se encontro ningun registro");
+                return null;
+            }
 				return usuario;
 			} catch (Exception e) {
 				e.printStackTrace();

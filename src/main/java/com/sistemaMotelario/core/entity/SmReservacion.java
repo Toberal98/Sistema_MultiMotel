@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Dell
@@ -53,6 +55,7 @@ public class SmReservacion implements Serializable {
     private String hora;
     @JoinColumn(name = "ha_id", referencedColumnName = "ha_id")
     @ManyToOne
+    @JsonIgnore
     private SmHabitacion haId;
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
     @ManyToOne

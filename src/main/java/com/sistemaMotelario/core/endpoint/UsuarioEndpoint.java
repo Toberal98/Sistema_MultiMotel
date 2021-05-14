@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,14 +32,14 @@ public class UsuarioEndpoint {
 	@Autowired
 	private UsuarioService usrService;
 	
-	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
         @ResponseBody 
 	public SmUsuario login(@Validated @RequestBody SmUsuario user, Model model) {
 		SmUsuario usr = usrService.login(user);
 		return usr;
 	}
 	
-	@PostMapping(value = "/newUser", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/newUser", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody 
 	public ResponseEntity<SmUsuario> createUser(@RequestBody SmUsuario usr) {
 		SmUsuario usuario = usrService.createNewUser(usr);
