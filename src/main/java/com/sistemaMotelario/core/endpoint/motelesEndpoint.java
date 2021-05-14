@@ -66,7 +66,7 @@ public class motelesEndpoint {
     	
     }
     
-    @PostMapping(path = "/lista/{idmunicipio}/{idcategoria}/{nombre}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/lista/{idmunicipio}/{idcategoria}/{nombre}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody 
     ResponseEntity<List<SmMotel>>  getMunicipios(@PathVariable int idmunicipio, @PathVariable int idcategoria,@PathVariable String nombre ) {
         List <SmMotel>  motelFiltrado = motels.findByMunIdandCatId(idmunicipio, idcategoria, "%"+nombre+"%");
@@ -76,7 +76,7 @@ public class motelesEndpoint {
         return new ResponseEntity<List<SmMotel>>(motelFiltrado, HttpStatus.OK);
     }
     
-    @PostMapping(path = "/oneMotel/{moId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/oneMotel/{moId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody 
     ResponseEntity<SmMotel>  getMotelesID(@PathVariable int moId ) {
     	SmMotel  mot = motels.findByMoId(moId);
@@ -86,7 +86,7 @@ public class motelesEndpoint {
         return new ResponseEntity<SmMotel>(mot, HttpStatus.OK);
     }
     
-    @PostMapping(path = "/habitacion/{moId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/habitacion/{moId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody 
     ResponseEntity<List<SmHabitacion>>  getHabitaciones(@PathVariable int moId ) {
     	List<SmHabitacion>  h = motels.findHabitacion(moId);
@@ -96,7 +96,7 @@ public class motelesEndpoint {
         return new ResponseEntity<List<SmHabitacion>>(h, HttpStatus.OK);
     }
     
-    @PostMapping(path = "/habitacionIndividual/{idHabitacion}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/habitacionIndividual/{idHabitacion}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody 
     ResponseEntity<SmHabitacion>  getHabitacionIndividual(@PathVariable int idHabitacion ) {
     	SmHabitacion h = motels.findById(idHabitacion);
@@ -116,7 +116,7 @@ public class motelesEndpoint {
         return new ResponseEntity<List<SmReservacion>>(listado, HttpStatus.OK);
     }
     
-    @PostMapping(path = "/reservaciones/{idUsuario}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/reservaciones/{idUsuario}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody 
     ResponseEntity<List<SmReservacion>>  getReservacionesbyidusuario(@PathVariable int idUsuario ) {
     	List<SmReservacion> listadoByusu = rs.findReservation(idUsuario);

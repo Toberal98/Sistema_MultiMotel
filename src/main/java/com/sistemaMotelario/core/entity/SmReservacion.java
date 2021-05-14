@@ -55,7 +55,7 @@ public class SmReservacion implements Serializable {
     private String hora;
     @JoinColumn(name = "ha_id", referencedColumnName = "ha_id")
     @ManyToOne
-    @JsonIgnore
+
     private SmHabitacion haId;
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
     @ManyToOne
