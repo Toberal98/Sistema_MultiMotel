@@ -8,17 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sistemaMotelario.core.dao.ReservacionDao;
+import com.sistemaMotelario.core.entity.SmEstado;
 import com.sistemaMotelario.core.entity.SmHabitacion;
 import com.sistemaMotelario.core.entity.SmMotel;
 import com.sistemaMotelario.core.entity.SmReservacion;
 import com.sistemaMotelario.core.entity.SmUsuario;
+import com.sistemaMotelario.core.repository.EstadoRepository;
+import com.sistemaMotelario.core.repository.HabitacionRepository;
 import com.sistemaMotelario.core.repository.ReservacionRepository;
+import org.springframework.data.jpa.repository.Modifying;
+
 @Component
 public class ReservacionDaoImpl implements ReservacionDao{
 
 	 public static Logger log = LoggerFactory.getLogger(ReservacionDaoImpl.class);
 	@Autowired
 	private ReservacionRepository reservacion;
+	@Autowired
+	private HabitacionRepository repoHabitacion;
+	@Autowired 
+	private EstadoRepository repoEstado;
 	@Override
 	public List<SmReservacion> findAll() {
 		try {
@@ -60,17 +69,23 @@ public class ReservacionDaoImpl implements ReservacionDao{
                 return null;
         }
 	}
-
+    @Modifying
 	@Override
 	public SmReservacion reservacion(SmReservacion reservaciones) {
 		try {
 			
             log.info("Creando la reservacion");
             SmReservacion rsrv = reservacion.save(reservaciones);
+			log.info("Actualizando estado de la habitacion");
+			SmHabitacion ha = new SmHabitacion();
+			SmEstado estado = repoEstado.findByEstId(2);
+			ha.setHaId(reservaciones.getHaId().getHaId());
+			ha.setEsId(estado);
+			repoHabitacion.save(ha);
             	if (rsrv == null) {
 	                log.warn("no se ha podido reservar");
 	                return null;
-            		}
+            		}			
             	return rsrv;
 		} catch (Exception e) {
 		e.printStackTrace();

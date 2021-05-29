@@ -32,11 +32,14 @@ public class UsuarioEndpoint {
 	@Autowired
 	private UsuarioService usrService;
 	
-	@GetMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
         @ResponseBody 
-	public SmUsuario login(@Validated @RequestBody SmUsuario user, Model model) {
+	public ResponseEntity<SmUsuario> login(@Validated @RequestBody SmUsuario user, Model model) {
 		SmUsuario usr = usrService.login(user);
-		return usr;
+		if(usr == null){
+			return new ResponseEntity<SmUsuario>(usr, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<SmUsuario>(usr, HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "/newUser", produces = MediaType.APPLICATION_JSON_VALUE)

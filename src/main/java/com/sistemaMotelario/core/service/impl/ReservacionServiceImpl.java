@@ -11,6 +11,7 @@ import com.sistemaMotelario.core.dao.ReservacionDao;
 import com.sistemaMotelario.core.dao.impl.ReservacionDaoImpl;
 import com.sistemaMotelario.core.entity.SmReservacion;
 import com.sistemaMotelario.core.service.ReservacionService;
+import org.springframework.data.jpa.repository.Modifying;
 @Service
 public class ReservacionServiceImpl implements ReservacionService{
 
