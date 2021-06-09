@@ -5,6 +5,7 @@
  */
 package com.sistemaMotelario.core.endpoint;
 
+import com.sistemMotelario.core.pojos.ReservacionPojo;
 import com.sistemaMotelario.core.entity.SmDepartamento;
 import com.sistemaMotelario.core.entity.SmFotos;
 import com.sistemaMotelario.core.entity.SmHabitacion;
@@ -50,6 +51,8 @@ public class motelesEndpoint {
     private MotelService motels;
     @Autowired
     private ReservacionService rs;
+	@Autowired 
+	private ReservacionPojo pojoRes;
         // filtramos los departamentos
     @GetMapping(value = "/departamentos", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
@@ -128,8 +131,8 @@ public class motelesEndpoint {
     
     @PostMapping(path = "/reservar", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody 
-	public ResponseEntity<SmReservacion> createReservacion(@RequestBody SmReservacion smres) {
-    	SmReservacion reservacionesUsuarios = rs.reservacion(smres);
+	public ResponseEntity<SmReservacion> createReservacion(@RequestBody ReservacionPojo smres) {
+    	SmReservacion reservacionesUsuarios = rs.reservacion(pojoRes.toEntity(smres));
 		if(reservacionesUsuarios == null) {
 			return new ResponseEntity<SmReservacion>(reservacionesUsuarios, HttpStatus.FORBIDDEN);
 		}

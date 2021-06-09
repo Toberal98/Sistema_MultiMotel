@@ -74,6 +74,13 @@ public class SmReservacion implements Serializable {
         this.fecha = fecha;
         this.hora = hora;
     }
+	 public SmReservacion( double resCantidadApagar, Date fecha, String hora, SmHabitacion haId, SmUsuario usrId) {
+        this.resCantidadApagar = resCantidadApagar;
+        this.fecha = fecha;
+        this.hora = hora;
+		this.haId = haId;
+		this.usrId = usrId;
+	 }
 
     public Integer getResId() {
         return resId;
