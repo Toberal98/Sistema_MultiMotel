@@ -82,7 +82,7 @@ public class ReservacionPojo {
 		this.UsrId = UsrId;
 	}
 	
-	public SmReservacion toEntity(ReservacionPojo pojo){
+	public static SmReservacion toEntity(ReservacionPojo pojo){
 		SmHabitacion habitacion = new SmHabitacion();
 		SmUsuario us = new SmUsuario();
 		habitacion.setHaId(pojo.haId);

@@ -51,8 +51,6 @@ public class motelesEndpoint {
     private MotelService motels;
     @Autowired
     private ReservacionService rs;
-	@Autowired 
-	private ReservacionPojo pojoRes;
         // filtramos los departamentos
     @GetMapping(value = "/departamentos", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
@@ -132,7 +130,7 @@ public class motelesEndpoint {
     @PostMapping(path = "/reservar", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody 
 	public ResponseEntity<SmReservacion> createReservacion(@RequestBody ReservacionPojo smres) {
-    	SmReservacion reservacionesUsuarios = rs.reservacion(pojoRes.toEntity(smres));
+    	SmReservacion reservacionesUsuarios = rs.reservacion(ReservacionPojo.toEntity(smres));
 		if(reservacionesUsuarios == null) {
 			return new ResponseEntity<SmReservacion>(reservacionesUsuarios, HttpStatus.FORBIDDEN);
 		}
