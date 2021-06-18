@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.sistemMotelario.core.pojos.UsuarioPojo;
 import com.sistemaMotelario.core.entity.SmUsuario;
 import com.sistemaMotelario.core.service.UsuarioService;
 import org.springframework.ui.Model;
@@ -44,8 +45,8 @@ public class UsuarioEndpoint {
 	
 	@PostMapping(path = "/newUser", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody 
-	public ResponseEntity<SmUsuario> createUser(@RequestBody SmUsuario usr) {
-		SmUsuario usuario = usrService.createNewUser(usr);
+	public ResponseEntity<SmUsuario> createUser(@RequestBody UsuarioPojo usr) {
+		SmUsuario usuario = usrService.createNewUser(UsuarioPojo.toEntity(usr));
 		if(usuario == null) {
 			return new ResponseEntity<SmUsuario>(usuario, HttpStatus.FORBIDDEN);
 		}
