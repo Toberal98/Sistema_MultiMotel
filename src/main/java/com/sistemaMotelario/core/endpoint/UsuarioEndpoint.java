@@ -47,18 +47,24 @@ public class UsuarioEndpoint {
 			            .body(mensaje);
 		}
 		 return ResponseEntity
-		            .status(HttpStatus.CREATED)                 
+		            .status(HttpStatus.OK)                 
 		            .body(usr);
 	}
 	
 	@PostMapping(path = "/newUser", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody 
-	public ResponseEntity<SmUsuario> createUser(@RequestBody UsuarioPojo usr) {
+	public ResponseEntity createUser(@RequestBody UsuarioPojo usr) {
 		SmUsuario usuario = usrService.createNewUser(UsuarioPojo.toEntity(usr));
 		SmUsuario us = new SmUsuario();
+		Map<String,String>  mensaje = new HashMap(); 
+		mensaje.put("mensaje", "El usuario ya existe");
 		if(usuario == null) {
-			return new ResponseEntity<SmUsuario>(usuario, HttpStatus.OK);
+			return ResponseEntity
+		            .status(HttpStatus.FORBIDDEN)
+		            .body(mensaje);
 		}
-		return new ResponseEntity<SmUsuario>(usuario, HttpStatus.CREATED);
+		 return ResponseEntity
+		            .status(HttpStatus.CREATED)                 
+		            .body(usuario);
 	}
 }
