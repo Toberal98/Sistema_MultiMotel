@@ -129,12 +129,9 @@ public class motelesEndpoint {
     
     @PostMapping(path = "/reservar", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody 
-	public ResponseEntity<SmReservacion> createReservacion(@RequestBody ReservacionPojo smres) {
-    	SmReservacion reservacionesUsuarios = rs.reservacion(ReservacionPojo.toEntity(smres));
-		if(reservacionesUsuarios == null) {
-			return new ResponseEntity<SmReservacion>(reservacionesUsuarios, HttpStatus.FORBIDDEN);
-		}
-		return new ResponseEntity<SmReservacion>(reservacionesUsuarios, HttpStatus.CREATED);
+	public ResponseEntity  createReservacion(@RequestBody ReservacionPojo smres) {
+    	
+		return rs.reservacion(ReservacionPojo.toEntity(smres));
 	}
     			
 }

@@ -1,6 +1,8 @@
 package com.sistemaMotelario.core.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,8 @@ import com.sistemaMotelario.core.repository.ReservacionRepository;
 import java.text.SimpleDateFormat;
 import java.util.stream.Collectors;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @Component
 public class ReservacionDaoImpl implements ReservacionDao{
@@ -73,7 +77,9 @@ public class ReservacionDaoImpl implements ReservacionDao{
 	}
     @Modifying
 	@Override
-	public SmReservacion reservacion(SmReservacion reservaciones) {
+	public ResponseEntity reservacion(SmReservacion reservaciones) {
+    	Map<String,String>  mensaje = new HashMap(); 
+		
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             log.info("Creando la reservacion");
@@ -82,23 +88,34 @@ public class ReservacionDaoImpl implements ReservacionDao{
 					.filter(r -> sdf.format(r.getFecha()).compareTo(sdf.format(reservaciones.getFecha())) == 0).collect(Collectors.toList());
 			if(resvacionesUsuario.size() > 0){
 				log.warn("No puede reservar mas de una habitacion.");
-				return null;
+				mensaje.put("mensaje", "No puede reservar mas de una habitacion.");
+				 return ResponseEntity
+				            .status(HttpStatus.BAD_REQUEST)                 
+				            .body(mensaje);
 			}
             SmReservacion rsrv = reservacion.save(reservaciones);
 			log.info("Actualizando estado de la habitacion");
 			SmHabitacion ha = repoHabitacion.findByhaId(reservaciones.getHaId().getHaId());
 			if(ha.getEsId().getEstId() == 2){
 				log.warn("la habitacion ya ha sido reservada");
-				return null;
+				mensaje.put("mensaje", "la habitacion ya ha sido reservada");
+				 return ResponseEntity
+				            .status(HttpStatus.ALREADY_REPORTED)                 
+				            .body(mensaje);
 			}
 			SmEstado estado = repoEstado.findByEstId(2);
 			ha.setEsId(estado);
 			repoHabitacion.save(ha);
             	if (rsrv == null) {
 	                log.warn("no se ha podido reservar");
-	                return null;
+	                mensaje.put("mensaje", "no se ha podido reservar");
+					 return ResponseEntity
+					            .status(HttpStatus.CONFLICT)                 
+					            .body(mensaje);
             		}			
-            	return rsrv;
+            	return ResponseEntity
+			            .status(HttpStatus.OK)                 
+			            .body(rsrv);
 		} catch (Exception e) {
 		e.printStackTrace();
 		log.error("posible causa: " + e.getCause());

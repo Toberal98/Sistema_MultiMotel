@@ -1,10 +1,13 @@
 package com.sistemaMotelario.core.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.sistemaMotelario.core.dao.ReservacionDao;
@@ -53,11 +56,11 @@ public class ReservacionServiceImpl implements ReservacionService{
 	}
 
 	@Override
-	public SmReservacion reservacion(SmReservacion reservaciones) {
+	public ResponseEntity reservacion(SmReservacion reservaciones) {
 		try {
 			
             log.info("Creando la reservacion");
-            SmReservacion reser = rd.reservacion(reservaciones);
+            ResponseEntity reser = rd.reservacion(reservaciones);
             	if (reser == null) {
 	                log.warn("no se ha podido reservar");
 	                return null;
