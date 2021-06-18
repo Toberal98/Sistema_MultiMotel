@@ -64,7 +64,7 @@ public class SmUsuario implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrId")
     private List<SmComentario> smComentarioList;
     @JsonIgnore
-    @OneToMany(mappedBy = "usrId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrId")
     private List<SmReservacion> smReservacionList;
 
     public SmUsuario() {

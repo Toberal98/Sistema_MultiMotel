@@ -16,6 +16,8 @@ import com.sistemaMotelario.core.entity.SmUsuario;
 import com.sistemaMotelario.core.repository.EstadoRepository;
 import com.sistemaMotelario.core.repository.HabitacionRepository;
 import com.sistemaMotelario.core.repository.ReservacionRepository;
+import java.text.SimpleDateFormat;
+import java.util.stream.Collectors;
 import org.springframework.data.jpa.repository.Modifying;
 
 @Component
@@ -73,13 +75,23 @@ public class ReservacionDaoImpl implements ReservacionDao{
 	@Override
 	public SmReservacion reservacion(SmReservacion reservaciones) {
 		try {
-			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             log.info("Creando la reservacion");
+			List<SmReservacion> resvacionesUsuario = reservacion.findByIdUsuario(reservaciones.getUsrId().getUsrId())
+					.stream()
+					.filter(r -> sdf.format(r.getFecha()).compareTo(sdf.format(reservaciones.getFecha())) == 0).collect(Collectors.toList());
+			if(resvacionesUsuario.size() > 0){
+				log.warn("No puede reservar mas de una habitacion.");
+				return null;
+			}
             SmReservacion rsrv = reservacion.save(reservaciones);
 			log.info("Actualizando estado de la habitacion");
-			SmHabitacion ha = new SmHabitacion();
+			SmHabitacion ha = repoHabitacion.findByhaId(reservaciones.getHaId().getHaId());
+			if(ha.getEsId().getEstId() == 2){
+				log.warn("la habitacion ya ha sido reservada");
+				return null;
+			}
 			SmEstado estado = repoEstado.findByEstId(2);
-			ha.setHaId(reservaciones.getHaId().getHaId());
 			ha.setEsId(estado);
 			repoHabitacion.save(ha);
             	if (rsrv == null) {

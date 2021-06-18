@@ -14,6 +14,6 @@ public interface ReservacionRepository extends CrudRepository<SmReservacion, Int
 
 	public abstract List<SmReservacion> findAll();
 	
-	@Query(nativeQuery = true, value="select r.* from sm_reservacion r inner join sm_usuario  us on r.usr_id = us.usr_id where r.usr_id = :idUsuario")
+	@Query(nativeQuery = true, value="select r.* from sm_reservacion r inner join sm_usuario  us on r.usr_id = us.usr_id where r.usr_id = :idUsuario order by r.res_id desc")
 	public abstract List<SmReservacion> findByIdUsuario(@Param("idUsuario") int idUsuario);
 }

@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EstadoRepository extends JpaRepository<SmEstado, SmEstado>{
-	public abstract SmEstado findByEstId(Integer id);
+	public abstract SmEstado findByEstId(Integer estId);
 }
