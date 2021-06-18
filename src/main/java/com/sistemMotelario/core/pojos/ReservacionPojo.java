@@ -5,6 +5,7 @@
  */
 package com.sistemMotelario.core.pojos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sistemaMotelario.core.entity.SmHabitacion;
 import com.sistemaMotelario.core.entity.SmReservacion;
 import com.sistemaMotelario.core.entity.SmUsuario;
@@ -17,18 +18,19 @@ import java.util.Date;
 public class ReservacionPojo {
 	private Integer resId;
     private double resCantidadPagar;
+	@JsonFormat(pattern="yyyy-MM-dd")
     private Date fecha;
     private String hora;
     private Integer haId;
-    private Integer UsrId;
+    private Integer usrId;
 
-	public ReservacionPojo(Integer resId, double resCantidadPagar, Date fecha, String hora, Integer haId, Integer UsrId) {
+	public ReservacionPojo(Integer resId, double resCantidadPagar, Date fecha, String hora, Integer haId, Integer usrId) {
 		this.resId = resId;
 		this.resCantidadPagar = resCantidadPagar;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.haId = haId;
-		this.UsrId = UsrId;
+		this.usrId = usrId;
 	}
 
 	public ReservacionPojo() {
@@ -75,18 +77,18 @@ public class ReservacionPojo {
 	}
 
 	public Integer getUsrId() {
-		return UsrId;
+		return usrId;
 	}
 
 	public void setUsrId(Integer UsrId) {
-		this.UsrId = UsrId;
+		this.usrId = UsrId;
 	}
 	
 	public static SmReservacion toEntity(ReservacionPojo pojo){
 		SmHabitacion habitacion = new SmHabitacion();
 		SmUsuario us = new SmUsuario();
 		habitacion.setHaId(pojo.haId);
-		us.setUsrId(pojo.UsrId);
+		us.setUsrId(pojo.usrId);
 		return new SmReservacion(pojo.resCantidadPagar, pojo.fecha, pojo.hora, habitacion, us);
 		
 	} 
