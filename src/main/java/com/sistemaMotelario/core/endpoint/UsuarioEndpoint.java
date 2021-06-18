@@ -1,6 +1,8 @@
 package com.sistemaMotelario.core.endpoint;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,20 +37,27 @@ public class UsuarioEndpoint {
 	
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
         @ResponseBody 
-	public ResponseEntity<SmUsuario> login(@Validated @RequestBody SmUsuario user, Model model) {
+	public ResponseEntity login(@Validated @RequestBody SmUsuario user, Model model) {
 		SmUsuario usr = usrService.login(user);
+		Map<String,String>  mensaje = new HashMap(); 
+		mensaje.put("mensaje", "usuario o password incorrectos");
 		if(usr == null){
-			return new ResponseEntity<SmUsuario>(usr, HttpStatus.NOT_FOUND);
+			 return ResponseEntity
+			            .status(HttpStatus.FORBIDDEN)
+			            .body(mensaje);
 		}
-		return new ResponseEntity<SmUsuario>(usr, HttpStatus.OK);
+		 return ResponseEntity
+		            .status(HttpStatus.CREATED)                 
+		            .body(usr);
 	}
 	
 	@PostMapping(path = "/newUser", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody 
 	public ResponseEntity<SmUsuario> createUser(@RequestBody UsuarioPojo usr) {
 		SmUsuario usuario = usrService.createNewUser(UsuarioPojo.toEntity(usr));
+		SmUsuario us = new SmUsuario();
 		if(usuario == null) {
-			return new ResponseEntity<SmUsuario>(usuario, HttpStatus.FORBIDDEN);
+			return new ResponseEntity<SmUsuario>(usuario, HttpStatus.OK);
 		}
 		return new ResponseEntity<SmUsuario>(usuario, HttpStatus.CREATED);
 	}

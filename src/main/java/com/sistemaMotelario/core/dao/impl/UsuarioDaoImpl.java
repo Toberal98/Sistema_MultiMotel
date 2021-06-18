@@ -39,12 +39,18 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		try {
 			
 	            log.info("Creando el usuario con correo : " + Usuario.getUsrCorreo());
-	            SmUsuario usuario = user.save(Usuario);
+	            SmUsuario usuarioV = user.findByCorreoAndPass(Usuario.getUsrCorreo(), Usuario.getUsrPassword());
+	            if(usuarioV == null ) {
+	            	SmUsuario usuario = user.save(Usuario);
 	            	if (usuario == null) {
 		                log.warn("no se ha podido crear intentalo de nuevo");
 		                return null;
 	            		}
 	            	return usuario;
+	            }else {
+	            	return null;
+	            }
+	            
 			} catch (Exception e) {
 			e.printStackTrace();
 			log.error("posible causa: " + e.getCause());
