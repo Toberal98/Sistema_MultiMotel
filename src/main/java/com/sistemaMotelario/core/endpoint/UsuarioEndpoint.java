@@ -25,16 +25,19 @@ import com.sistemMotelario.core.pojos.UsuarioPojo;
 import com.sistemaMotelario.core.entity.SmUsuario;
 import com.sistemaMotelario.core.service.UsuarioService;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
 @SessionAttributes({"usuario"})
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:19006", methods= {RequestMethod.GET,RequestMethod.POST})
+
 public class UsuarioEndpoint {
 
 	public static Logger log = LoggerFactory.getLogger(motelesEndpoint.class);
 	@Autowired
 	private UsuarioService usrService;
-	
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
         @ResponseBody 
 	public ResponseEntity login(@Validated @RequestBody SmUsuario user, Model model) {
